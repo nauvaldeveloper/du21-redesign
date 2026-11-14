@@ -38,25 +38,15 @@
 
   $('#areas').innerHTML = [{ id: 'all', label: 'Semua' }, ...D.AREAS].map((a) => `<button type="button" data-area="${a.id}" aria-pressed="${a.id === 'all'}">${esc(a.label)}</button>`).join('');
 
-  let map = null; const markers = [];
-  function initMap() {
-    if (!window.L || map) return;
-    map = L.map('map', { scrollWheelZoom: false, zoomControl: true });
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Peta &copy; Esri' }).addTo(map);
-    outlets.forEach((o) => {
-      if (!o.lat) return;
-      const icon = L.divIcon({ className: '', html: '<div class="pin"></div>', iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -28] });
-      const m = L.marker([o.lat, o.lng], { icon }).addTo(map).bindPopup(`<b>DU21 ${esc(o.name)}</b><br/>${esc(shortAddr(o.addr))}<br/><a href="${mapsLink(o)}" target="_blank" rel="noopener">Petunjuk arah</a>`);
-      m.on('click', () => select(o.i, false));
-      markers[o.i] = m;
-    });
-    fitTo(outlets);
-  }
-  function fitTo(list) {
-    if (!map) return;
-    const pts = list.filter((o) => o.lat).map((o) => [o.lat, o.lng]);
-    if (st.me) pts.push([st.me.lat, st.me.lng]);
-    if (pts.length) map.fitBounds(pts, { padding: [24, 24], maxZoom: 13 });
+  // Peta: Google Maps embed (tanpa API key), menampilkan outlet yang sedang dipilih
+  const embed = (o) => `https://maps.google.com/maps?q=${o.lat ? `${o.lat},${o.lng}` : encodeURIComponent('Es Teler DU21 ' + o.addr)}&z=16&hl=id&output=embed`;
+  function showMap(o) {
+    const f = $('#gmap');
+    if (f.dataset.i === String(o.i)) return;
+    f.dataset.i = o.i; f.src = embed(o); f.title = `Peta outlet DU21 ${o.name}`;
+    $('#mapName').textContent = `DU21 ${o.name}`;
+    $('#mapAddr').textContent = shortAddr(o.addr);
+    $('#mapGo').href = mapsLink(o);
   }
 
   function visible() {
@@ -66,7 +56,7 @@
     return list;
   }
 
-  function renderOutlets(refit = true) {
+  function renderOutlets() {
     const list = visible();
     $('#count').textContent = list.length
       ? (st.me ? `${list.length} outlet, diurutkan dari yang paling dekat denganmu` : `${list.length} outlet ditemukan`)
@@ -83,17 +73,16 @@
         <div class="o__acts"><a href="${mapsLink(o)}" target="_blank" rel="noopener">Petunjuk arah</a>${order}</div>
       </li>`;
     }).join('');
-    if (refit) fitTo(list);
+    if (st.active == null && list[0]) showMap(list[0]);
   }
 
-  function select(i, fly = true) {
+  function select(i, scroll = false) {
     st.active = i;
-    markers.forEach((m, k) => m && m.getElement() && m.getElement().querySelector('.pin').classList.toggle('is-on', k === i));
-    const o = outlets[i];
-    if (map && o.lat && fly) { map.flyTo([o.lat, o.lng], 14, { duration: .6 }); markers[i].openPopup(); }
-    renderOutlets(false);
+    showMap(outlets[i]);
+    renderOutlets();
     const li = document.querySelector(`.o[data-i="${i}"]`);
-    if (li && !fly) li.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    if (li && scroll) li.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    if (window.innerWidth < 960) $('#mapCard').scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
   $('#list').addEventListener('click', (e) => {
@@ -114,14 +103,36 @@
     btn.textContent = 'Mencari lokasimu…';
     navigator.geolocation.getCurrentPosition((p) => {
       st.me = { lat: p.coords.latitude, lng: p.coords.longitude };
-      if (map) L.circleMarker([st.me.lat, st.me.lng], { radius: 9, color: '#fff', weight: 3, fillColor: '#2563eb', fillOpacity: 1 }).addTo(map).bindPopup('Lokasimu');
       btn.textContent = 'Lokasi dipakai';
-      renderOutlets();
-      const first = visible()[0]; if (first) select(first.i);
+      st.active = null; renderOutlets();
+      const first = visible()[0]; if (first) select(first.i, true);
     }, () => { btn.textContent = 'Izin lokasi ditolak'; }, { enableHighAccuracy: false, timeout: 10000 });
   }
   $('#locBtn').addEventListener('click', locate);
   document.querySelectorAll('[data-near]').forEach((a) => a.addEventListener('click', () => setTimeout(locate, 400)));
+
+  /* ---------------- galeri ---------------- */
+  const PLAY = '<span class="tile__play"><svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></span>';
+  const tile = (g, i) => `<button type="button" class="tile tile--${g.shape}" data-g="${i}" aria-label="${g.type === 'video' ? 'Putar video' : 'Lihat foto'}: ${esc(g.title)}">
+      <img src="assets/img/galeri/${g.poster}.webp" alt="" loading="lazy" />${g.type === 'video' ? PLAY : ''}
+      <span class="tile__info"><b>${esc(g.title)}</b><span>${esc(g.sub)}</span></span></button>`;
+  $('#galTv').innerHTML = D.GALLERY.map((g, i) => g.kind === 'tv' ? tile(g, i) : '').join('');
+  $('#galPf').innerHTML = D.GALLERY.map((g, i) => g.kind === 'pf' ? tile(g, i) : '').join('');
+  const lb = $('#lb');
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-g]'); if (!t) return;
+    const g = D.GALLERY[Number(t.dataset.g)];
+    $('#lbMedia').innerHTML = g.type === 'video'
+      ? `<video src="${g.src}" poster="assets/img/galeri/${g.poster}.webp" controls autoplay playsinline preload="metadata"></video>`
+      : `<img src="assets/img/galeri/${g.poster}.webp" alt="${esc(g.title)}" />`;
+    $('#lbCap').textContent = `${g.title} · ${g.sub}`;
+    lb.showModal();
+  });
+  const closeLb = () => { lb.close(); };
+  $('#lbX').addEventListener('click', closeLb);
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+  lb.addEventListener('close', () => { $('#lbMedia').innerHTML = ''; });
+  $('#igLink').href = D.IG;
 
   /* ---------------- lain-lain ---------------- */
   $('#press').innerHTML = D.PRESS.map((p) => `<li>${esc(p)}</li>`).join('');
@@ -132,6 +143,5 @@
     ['WhatsApp ' + D.WA_DISPLAY, waLink('Hi DU21')], ['Instagram @du21group', D.IG], ['TikTok @dapurumi21', D.TIKTOK], [D.EMAIL, 'mailto:' + D.EMAIL],
   ].map(([l, h]) => `<li><a href="${h}" target="_blank" rel="noopener">${esc(l)}</a></li>`).join('');
 
-  renderMenu(); renderOutlets(); initMap();
-  window.addEventListener('load', () => { if (map) { map.invalidateSize(); fitTo(visible()); } });
+  renderMenu(); renderOutlets();
 })();

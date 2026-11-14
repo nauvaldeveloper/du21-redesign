@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
@@ -20,7 +19,7 @@
     <div class="wrap top__in">
       <a href="#" class="brand"><img src="assets/img/logo.png" alt="" width="40" height="42" /><span>Es Teler <b>DU21</b></span></a>
       <nav class="nav" id="nav" aria-label="Navigasi">
-        <a href="#menu">Menu</a><a href="#outlet">Outlet</a><a href="#tentang">Tentang</a>
+        <a href="#menu">Menu</a><a href="#outlet">Outlet</a><a href="#galeri">Galeri</a><a href="#tentang">Tentang</a>
       </nav>
       <a href="#outlet" class="btn btn--lime btn--sm">Cari outlet</a>
     </div>
@@ -47,7 +46,7 @@
         <figure class="hero__img"><img src="assets/img/hero-cups.webp" alt="Dua gelas es teler DU21 original dan durian" width="740" height="740" fetchpriority="high" /></figure>
       </div>
       <div class="press">
-        <div class="wrap press__in"><span>Pernah diliput</span><ul id="press"></ul></div>
+        <div class="wrap press__in"><span>Pernah diliput</span><ul id="press"></ul><a href="#galeri" class="press__more">Tonton liputannya →</a></div>
       </div>
     </section>
 
@@ -83,8 +82,22 @@
             <p class="count" id="count"></p>
             <ol class="list" id="list"></ol>
           </div>
-          <div class="finder__map"><div id="map" aria-label="Peta outlet"></div></div>
+          <div class="finder__map" id="mapCard"><iframe id="gmap" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="Peta outlet"></iframe><div class="mapbar"><div><b id="mapName"></b><span id="mapAddr"></span></div><a class="btn btn--lime btn--sm" id="mapGo" target="_blank" rel="noopener">Buka di Google Maps</a></div></div>
         </div>
+      </div>
+    </section>
+
+    <!-- GALERI -->
+    <section class="sec gal" id="galeri">
+      <div class="wrap">
+        <div class="head head--light">
+          <div><p class="kick">Galeri</p><h2>Diliput TV, didatangi public figure</h2></div>
+          <a class="btn btn--line" id="igLink" target="_blank" rel="noopener">Ikuti @du21group</a>
+        </div>
+        <h3 class="gal__lbl">Liputan televisi</h3>
+        <div class="gal__tv" id="galTv"></div>
+        <h3 class="gal__lbl">Public figure &amp; konten kreator</h3>
+        <div class="gal__pf" id="galPf"></div>
       </div>
     </section>
 
@@ -97,10 +110,6 @@
           <p>Sejak 2021, DU21 menyajikan es teler dengan keseimbangan rasa yang pas dari bahan baku berkualitas premium. Kualitas bahan dan rasa selalu dijaga di setiap outlet, dan Es Teler DU21 sudah bersertifikat halal.</p>
           <div class="note"><b>Hanya di outlet resmi.</b> DU21 tidak punya second brand dengan nama apa pun. Rasa aslinya hanya ada di outlet yang terdaftar di website dan media sosial resmi.</div>
           <div class="faq" id="faq"></div>
-        </div>
-        <div class="about__pics">
-          <img src="assets/img/kunjungan-1.webp" alt="Tim DU21 bersama tamu di outlet" loading="lazy" />
-          <img src="assets/img/kunjungan-2.webp" alt="Es Teler DU21 di sebuah acara" loading="lazy" />
         </div>
       </div>
     </section>
@@ -121,12 +130,17 @@
     </div>
   </footer>
 
+  <dialog class="lb" id="lb" aria-label="Pemutar video">
+    <button type="button" class="lb__x" id="lbX" aria-label="Tutup">×</button>
+    <div class="lb__media" id="lbMedia"></div>
+    <p class="lb__cap" id="lbCap"></p>
+  </dialog>
+
   <a class="wa" id="waFloat" target="_blank" rel="noopener" aria-label="Chat admin DU21 di WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .3-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2.1 1.3 2.4 1.4.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
     <span>Chat admin</span>
   </a>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="assets/js/data.js"></script>
   <script src="assets/js/app.js"></script>
 </body>

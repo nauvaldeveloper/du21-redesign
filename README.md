@@ -7,9 +7,11 @@ HTML/CSS/JS biasa, tanpa build tool. Buka `index.html` langsung di browser.
 
 ## Fitur
 - Menu 10 item dengan foto dan harga resmi, bisa disaring (klasik, durian, buah, untuk rame-rame)
-- Pencari 23 outlet: cari nama atau kota, filter wilayah, peta (Leaflet + peta jalan Esri, tanpa API key)
+- Pencari 23 outlet: cari nama atau kota, filter wilayah, peta Google Maps (embed, tanpa API key) untuk outlet yang dipilih
 - "Pakai lokasiku": outlet diurutkan dari yang terdekat, lengkap dengan jarak
 - Tiap outlet: petunjuk arah Google Maps, GoFood dan ShopeeFood (kalau ada), atau tanya admin
+- Galeri liputan TV & public figure: video asli DU21 diputar di pemutar layar penuh
+  (video di-streaming dari server du21group.com, poster disimpan lokal)
 - Liputan media, sertifikasi halal, peringatan "hanya di outlet resmi", FAQ, lowongan
 
 ## Sumber data

@@ -61,6 +61,19 @@ window.DU21 = {
     {"name": "Ciwidey", "area": "Kab", "addr": "Margamulya, Kec. Pasirjambu, Kabupaten Bandung, Jawa Barat", "lat": -7.104104, "lng": 107.467047, "gofood": null, "shopee": null}
   ],
 
+  // Video diputar langsung dari server du21group.com (file asli mereka)
+  GALLERY: [
+    { kind: 'tv', type: 'video', shape: 'wide', title: 'Si Unyil', sub: 'Liputan televisi', poster: 'si-unyil', src: 'https://du21group.com/wp-content/uploads/2024/09/1-1.mp4' },
+    { kind: 'tv', type: 'video', shape: 'wide', title: 'Disbudpar Kab. Bandung', sub: 'Bersama Utari, owner Es Teler 21', poster: 'disbudpar', src: 'https://du21group.com/wp-content/uploads/2024/10/Disbudpar.mp4' },
+    { kind: 'tv', type: 'video', shape: 'wide', title: 'Makan Receh', sub: 'Liputan televisi', poster: 'makan-receh', src: 'https://du21group.com/wp-content/uploads/2024/09/3.mp4' },
+    { kind: 'tv', type: 'photo', shape: 'wide', title: 'Trans 7', sub: 'Kru liputan bersama tim DU21', poster: 'trans7' },
+    { kind: 'pf', type: 'photo', shape: 'wide', title: 'Syahrul Gunawan', sub: 'Mencicipi Es Teler DU21', poster: 'syahrul-gunawan' },
+    { kind: 'pf', type: 'video', shape: 'tall', title: 'Si Tukang Dahar', sub: 'Bagi-bagi es teler satu ember', poster: 'si-tukang-dahar', src: 'https://du21group.com/wp-content/uploads/2024/09/7.mp4' },
+    { kind: 'pf', type: 'video', shape: 'tall', title: 'Konten kreator', sub: 'Review di outlet DU21', poster: 'kreator-1', src: 'https://du21group.com/wp-content/uploads/2024/10/VID-20241002-WA0022.mp4' },
+    { kind: 'pf', type: 'video', shape: 'tall', title: 'Konten kreator', sub: 'Es teler se-ember, outlet Cijerah', poster: 'kreator-2', src: 'https://du21group.com/wp-content/uploads/2024/10/VID-20241002-WA0019.mp4' },
+    { kind: 'pf', type: 'video', shape: 'tall', title: 'Pengunjung', sub: 'Nongkrong bareng di outlet', poster: 'pengunjung', src: 'https://du21group.com/wp-content/uploads/2024/10/VID-20241002-WA0012.mp4' },
+  ],
+
   PRESS: ['Si Unyil', 'Trans 7', 'Makan Receh', 'Disbudpar'],
 
   FAQ: [
