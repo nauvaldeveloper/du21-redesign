@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Es Teler DU21 · Konsep Redesign</title>
+  <meta name="description" content="Konsep redesign website Es Teler DU21 oleh Nauval Dev: menu dan 23 outlet dengan peta." />
+  <link rel="icon" href="assets/img/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="concept" id="concept">Konsep redesign oleh <a href="https://nauvaldev.my.id/" target="_blank" rel="noopener">Nauval Dev</a> · bukan situs resmi Es Teler DU21</div>
+
+  <header class="top" id="top">
+    <div class="wrap top__in">
+      <a href="#" class="brand"><img src="assets/img/logo.png" alt="" width="40" height="42" /><span>Es Teler <b>DU21</b></span></a>
+      <nav class="nav" id="nav" aria-label="Navigasi">
+        <a href="#menu">Menu</a><a href="#outlet">Outlet</a><a href="#tentang">Tentang</a>
+      </nav>
+      <a href="#outlet" class="btn btn--lime btn--sm">Cari outlet</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__in">
+        <div class="hero__copy">
+          <p class="kick">Es teler premium · sejak 2021</p>
+          <h1>Segelas penuh <span>buah,</span> di 23 outlet Jawa Barat.</h1>
+          <p class="lead">Alpukat, nangka, kelapa muda, sampai durian. Mampir ke outlet terdekat, atau pesan lewat GoFood dan ShopeeFood.</p>
+          <div class="hero__cta">
+            <a href="#outlet" class="btn btn--lime" data-near>Outlet terdekat dariku</a>
+            <a href="#menu" class="btn btn--line">Lihat menu &amp; harga</a>
+          </div>
+          <dl class="facts">
+            <div><dt>23</dt><dd>outlet di 9 kota &amp; kabupaten</dd></div>
+            <div><dt>10</dt><dd>pilihan menu, mulai Rp10rb</dd></div>
+            <div><dt>Halal</dt><dd>sudah bersertifikat</dd></div>
+          </dl>
+        </div>
+        <figure class="hero__img"><img src="assets/img/hero-cups.webp" alt="Dua gelas es teler DU21 original dan durian" width="740" height="740" fetchpriority="high" /></figure>
+      </div>
+      <div class="press">
+        <div class="wrap press__in"><span>Pernah diliput</span><ul id="press"></ul></div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="sec menu" id="menu">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="kick kick--plum">Menu</p><h2>Pilih es telermu</h2></div>
+          <div class="chips" id="filters" role="group" aria-label="Saring menu">
+            <button type="button" data-f="all" aria-pressed="true">Semua</button>
+            <button type="button" data-f="klasik" aria-pressed="false">Klasik</button>
+            <button type="button" data-f="durian" aria-pressed="false">Durian</button>
+            <button type="button" data-f="buah" aria-pressed="false">Buah</button>
+            <button type="button" data-f="porsi" aria-pressed="false">Untuk rame-rame</button>
+          </div>
+        </div>
+        <div class="grid" id="grid"></div>
+        <p class="fine">Harga di outlet. Di GoFood dan ShopeeFood harga bisa sedikit berbeda karena biaya layanan aplikasi.</p>
+      </div>
+    </section>
+
+    <!-- OUTLET -->
+    <section class="sec outlets" id="outlet">
+      <div class="wrap">
+        <div class="head head--light">
+          <div><p class="kick">Lokasi</p><h2>23 outlet, cari yang paling dekat</h2></div>
+          <button type="button" class="btn btn--lime" id="locBtn">Pakai lokasiku</button>
+        </div>
+        <div class="finder">
+          <div class="finder__side">
+            <label class="search"><span class="sr">Cari outlet</span><input id="q" type="search" placeholder="Cari kota atau kecamatan, mis. Cimahi" autocomplete="off" /></label>
+            <div class="chips chips--dark" id="areas" role="group" aria-label="Wilayah"></div>
+            <p class="count" id="count"></p>
+            <ol class="list" id="list"></ol>
+          </div>
+          <div class="finder__map"><div id="map" aria-label="Peta outlet"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TENTANG -->
+    <section class="sec about" id="tentang">
+      <div class="wrap about__in">
+        <div class="about__copy">
+          <p class="kick kick--plum">Tentang DU21</p>
+          <h2>Rasa yang seimbang, bahan yang dijaga.</h2>
+          <p>Sejak 2021, DU21 menyajikan es teler dengan keseimbangan rasa yang pas dari bahan baku berkualitas premium. Kualitas bahan dan rasa selalu dijaga di setiap outlet, dan Es Teler DU21 sudah bersertifikat halal.</p>
+          <div class="note"><b>Hanya di outlet resmi.</b> DU21 tidak punya second brand dengan nama apa pun. Rasa aslinya hanya ada di outlet yang terdaftar di website dan media sosial resmi.</div>
+          <div class="faq" id="faq"></div>
+        </div>
+        <div class="about__pics">
+          <img src="assets/img/kunjungan-1.webp" alt="Tim DU21 bersama tamu di outlet" loading="lazy" />
+          <img src="assets/img/kunjungan-2.webp" alt="Es Teler DU21 di sebuah acara" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- KARIER -->
+    <section class="career">
+      <div class="wrap career__in">
+        <div><h3>Mau gabung tim DU21?</h3><p>Lowongan outlet diumumkan di Instagram resmi.</p></div>
+        <a class="btn btn--line-dark" id="careerLink" target="_blank" rel="noopener">Lihat lowongan</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <div class="foot__brand"><img src="assets/img/logo.png" alt="" width="48" height="50" /><div><b>Es Teler DU21</b><span>Pelopor es teler premium di Kabupaten Bandung, sejak 2021.</span></div></div>
+      <ul class="foot__links" id="footLinks"></ul>
+    </div>
+  </footer>
+
+  <a class="wa" id="waFloat" target="_blank" rel="noopener" aria-label="Chat admin DU21 di WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .3-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2.1 1.3 2.4 1.4.3.2.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+    <span>Chat admin</span>
+  </a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
